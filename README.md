@@ -22,22 +22,25 @@ The archetype you choose when founding your capital is untouched, and so are rat
 
 ### The founding event
 
-When you found your capital and pick your archetype, *An Unwritten Reputation* fires — a normal
+When you found your capital and pick your archetype, *The Measure of a Ruler* fires — a normal
 Old World event card with your ruler's portrait — so the missing trait reads as intentional
 rather than as a bug:
 
-> The court knows your blood, **{ruler}**, but not yet your character. The chroniclers have
-> opened a page for your reign and left it empty, for they will not write what they have not
-> witnessed. Your elders speak of the old rulers by a single word apiece — the Just, the
-> Frugal, the Bold — and none of those words were chosen on the day of a crowning.
+> The elders of your court gather to take your measure, and they are not subtle about it. You
+> are new to the throne, **{ruler}**, and every one of them has buried a ruler before. One of
+> them mutters that it is far too early to say anything at all. Another agrees, a little too
+> quickly.
 >
-> Rule a season. When the year turns, your people will have taken your measure, and the word
-> they have earned for you will be yours to accept.
+> They will not praise what they have not seen. Whatever word they finally settle on for you —
+> shrewd, pious, ruthless — you will earn it in the season ahead, not today.
 >
-> — *Let them watch, and let them judge.*
+> What will you have them witness?
+>
+> — *Let them watch. I will give them something worth telling.*
 
 It is a real `eventStory` in `mod/Infos/`, fired from code rather than by a trigger so it
-reaches exactly the players the mod applies to, and only once their leader exists.
+reaches exactly the players the mod applies to, and only once their leader exists. The option
+carries a help tooltip stating the mechanic plainly, so the body stays in voice.
 
 Popup contents, following the stock level-up shape:
 

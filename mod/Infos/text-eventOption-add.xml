@@ -2,6 +2,10 @@
 <Root>
 	<Entry>
 		<zType>TEXT_EVENTOPTION_OWTRAITMOD_UNWRITTEN_REPUTATION_OK</zType>
-		<en-US>Let them watch, and let them judge.</en-US>
+		<en-US>Let them watch. I will give them something worth telling.</en-US>
+	</Entry>
+	<Entry>
+		<zType>TEXT_EVENTOPTION_OWTRAITMOD_UNWRITTEN_REPUTATION_OK_HELP</zType>
+		<en-US>{CHARACTER-SHORT-0} begins with no strength. Next turn you will choose one.</en-US>
 	</Entry>
 </Root>
