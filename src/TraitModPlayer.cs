@@ -14,6 +14,8 @@ namespace OwTraitMod
     /// </summary>
     public class TraitModPlayer : Player
     {
+        const string UNWRITTEN_REPUTATION_EVENTSTORY = "EVENTSTORY_OWTRAITMOD_UNWRITTEN_REPUTATION";
+
         /// <summary>
         /// The leader is built by Player.createInitialLeader -> createAdult -> fillValues,
         /// which adds the archetype and then rolls 1-2 random strength "adjective" traits.
@@ -54,6 +56,56 @@ namespace OwTraitMod
 
                     MohawkLog.Log($"[OwTraitMod] stripped starting trait {infos().trait(eLoopTrait).mzType} from player {(int)getPlayer()}'s leader");
                     pLeader.removeTrait(eLoopTrait);
+                }
+            }
+        }
+
+        /// <summary>
+        /// createInitialLeader runs before addLeader, so the event has to be fired from here:
+        /// SUBJECT_LEADER_US cannot resolve until the leader is registered with the player.
+        /// </summary>
+        public override void createNationCharacters(TraitType eLeaderArchetype, TraitType eTrait = TraitType.NONE, NameType eName = NameType.NONE, GenderType eGender = GenderType.NONE, int iAge = 0, CharacterPortraitType ePortrait = CharacterPortraitType.NONE)
+        {
+            bool bHadLeader = hasLeader();
+
+            base.createNationCharacters(eLeaderArchetype, eTrait, eName, eGender, iAge, ePortrait);
+
+            if (!bHadLeader && hasLeader() && isStartingTraitModActive())
+            {
+                doUnwrittenReputationEvent(leader());
+            }
+        }
+
+        /// <summary>
+        /// Tell the player their ruler has no reputation yet and will earn one next turn.
+        /// Fired here rather than from an eventTrigger because it has to reach exactly the
+        /// players this mod applies to, and only once their leader exists — under Pick Later
+        /// that is the moment they found their capital, not the start of the game.
+        /// Silently skipped if the mod's XML is not installed alongside the DLL.
+        /// </summary>
+        protected virtual void doUnwrittenReputationEvent(Character pLeader)
+        {
+            if (!isHuman() || !canDoEvents())
+            {
+                return;
+            }
+
+            EventStoryType eEventStory = infos().getType<EventStoryType>(UNWRITTEN_REPUTATION_EVENTSTORY, false);
+
+            if (eEventStory == EventStoryType.NONE)
+            {
+                MohawkLog.Log("[OwTraitMod] " + UNWRITTEN_REPUTATION_EVENTSTORY + " not found - Infos/ missing from the mod folder?");
+                return;
+            }
+
+            using (var subjectListScoped = CollectionCache.GetListScoped<object>())
+            {
+                List<object> lSubjects = subjectListScoped.Value;
+                lSubjects.Add(pLeader);
+
+                if (!doEventStory(eEventStory, game().getSeedForId(pLeader.getID()), bModal: true, lSubjects))
+                {
+                    MohawkLog.Log("[OwTraitMod] could not fire " + UNWRITTEN_REPUTATION_EVENTSTORY);
                 }
             }
         }

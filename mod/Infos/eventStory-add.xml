@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fired from code (TraitModPlayer, right after the leader is created), not by a
+     trigger: it must reach exactly the players this mod applies to, and only once
+     their leader exists. Hence no Trigger / iWeight. -->
+<Root>
+	<Entry>
+		<zType>EVENTSTORY_OWTRAITMOD_UNWRITTEN_REPUTATION</zType>
+		<Name>TEXT_EVENTSTORY_OWTRAITMOD_UNWRITTEN_REPUTATION_TITLE</Name>
+		<Text>TEXT_EVENTSTORY_OWTRAITMOD_UNWRITTEN_REPUTATION</Text>
+		<zBackgroundName>crowning_01</zBackgroundName>
+		<aeSubjects>
+			<zValue>SUBJECT_LEADER_US</zValue>
+		</aeSubjects>
+		<aeOptions>
+			<zValue>EVENTOPTION_OWTRAITMOD_UNWRITTEN_REPUTATION_OK</zValue>
+		</aeOptions>
+		<iImageSubject>0</iImageSubject>
+		<iPriority>20</iPriority>
+		<iRepeatTurns>-1</iRepeatTurns>
+	</Entry>
+</Root>

@@ -17,8 +17,27 @@ The archetype you choose when founding your capital is untouched, and so are rat
 
 | | stock | with the mod |
 |---|---|---|
-| leader at founding | archetype + 1–2 random strength traits | archetype only |
+| leader at founding | archetype + 1–2 random strength traits | archetype only, plus an event explaining what is coming |
 | turn 2 | nothing | Promote popup: pick 1 of 4 traits |
+
+### The founding event
+
+When you found your capital and pick your archetype, *An Unwritten Reputation* fires — a normal
+Old World event card with your ruler's portrait — so the missing trait reads as intentional
+rather than as a bug:
+
+> The court knows your blood, **{ruler}**, but not yet your character. The chroniclers have
+> opened a page for your reign and left it empty, for they will not write what they have not
+> witnessed. Your elders speak of the old rulers by a single word apiece — the Just, the
+> Frugal, the Bold — and none of those words were chosen on the day of a crowning.
+>
+> Rule a season. When the year turns, your people will have taken your measure, and the word
+> they have earned for you will be yours to accept.
+>
+> — *Let them watch, and let them judge.*
+
+It is a real `eventStory` in `mod/Infos/`, fired from code rather than by a trigger so it
+reaches exactly the players the mod applies to, and only once their leader exists.
 
 Popup contents, following the stock level-up shape:
 
@@ -80,6 +99,9 @@ Two hooks, both anchored on shipped code:
     leader. `getNationTurn` is stamped when the character joins the nation, so this is true
     on exactly one turn and needs no extra saved state. Found on turn 1 → pick on turn 2;
     found late → pick the turn after founding.
+  - `createNationCharacters` — fires the founding event. It has to be here rather than in
+    `createInitialLeader`, which runs *before* `addLeader`, leaving `SUBJECT_LEADER_US` with
+    no leader to resolve to.
 - `src/TraitModCharacter.cs` — `doStartingTraitEvent()`, modelled on
   `Character.doUpgradeEvent` (GameCore/Character.cs:9094): same `isValidUpgradeTrait`
   filter, same `UpgradeCharacterDecision`, same `Player.pushDecisionDataNext`, so the popup

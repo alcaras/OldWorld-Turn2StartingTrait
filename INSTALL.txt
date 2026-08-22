@@ -10,11 +10,15 @@ WHAT IT DOES
   If the leader already holds a job (general / explorer / governor) the popup keeps
   the stock level-up shape: three traits for that job plus one from the other pool.
 
+  When you found your capital, an event ("An Unwritten Reputation") explains that
+  your ruler has no reputation yet and will earn one next turn.
+
   Your archetype pick and your ratings are untouched. Players using a fixed
   archetype, a preset leader, or the leader customizer are unaffected.
 
 INSTALL
-  Copy the "OwTraitMod" folder into your Old World Mods directory:
+  Copy the whole "OwTraitMod" folder (the DLL, ModInfo.xml AND the Infos folder)
+  into your Old World Mods directory:
 
     macOS    ~/Library/Application Support/OldWorld/Mods/
     Windows  %USERPROFILE%\Documents\My Games\OldWorld\Mods\
@@ -24,8 +28,14 @@ INSTALL
   prompted. Start a New Game with Leader = "Pick Later" and Customize Leader off.
 
 VERIFY
-  Turn 1, after founding: your leader's panel shows the archetype and no strength
-  trait. Turn 2: the "Promote <leader>" popup appears with four traits.
+  Turn 1, after founding: the event fires, and your leader's panel shows the
+  archetype and no strength trait. Turn 2: the "Promote <leader>" popup appears
+  with four traits.
+
+  IMPORTANT: enabling a mod in the Mods menu is not enough on its own — make sure
+  it is still enabled when the game starts. If you toggle it and then start a game
+  without the mod active, you will simply get stock behaviour (a random strength
+  trait on your ruler) and no popup.
 
   The mod also writes to the game log, if you want to be sure:
     macOS    ~/Library/Application Support/OldWorld/Logs/output.txt

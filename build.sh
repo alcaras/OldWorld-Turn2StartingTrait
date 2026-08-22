@@ -9,8 +9,9 @@ echo "building..."
 dotnet build "$HERE/OwTraitMod.csproj" -clp:NoSummary -nologo | grep -iE "error|warn|Build succeeded" || true
 
 echo "deploying -> $DEST"
-rm -rf "$DEST"; mkdir -p "$DEST"
+rm -rf "$DEST"; mkdir -p "$DEST/Infos"
 cp "$HERE/mod/ModInfo.xml" "$DEST/"
+cp "$HERE/mod/Infos/"*.xml "$DEST/Infos/"
 cp /tmp/owtraitmod-build/OwTraitMod/bin/Debug/OwTraitMod.dll "$DEST/"
 echo "done. Files:"; find "$DEST" -type f
 echo
