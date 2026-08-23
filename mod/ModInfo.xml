@@ -30,8 +30,12 @@ Your archetype choice and your ratings are untouched.
 
 The two do not overlap, so a general's fourth option is always a governor strength, and a governor's fourth is always a general one.
 
-[h1]Multiplayer: the same menu for everyone[/h1]
-Every player is offered the [b]identical four traits, in the same order[/b], and the menu does not depend on whose turn is processed first. The game is decided by the choice, not the roll.
+[h1]Multiplayer[/h1]
+Depending on the leader (unassigned, governor, general), players will get a choice of four traits from the appropriate pool. These four traits are the same for both players if they're in the same pool.
+
+For example, if both players assign their leader as governor on turn 1, they'll both pick from four traits (3 of which are from the gov pool, 1 from the general pool). The four traits offered will be the same for both players.
+
+Another example: If one player assigns their leader as a general and the other leaves their leader unassigned, the first player will pick from four traits (3 from the general pool, 1 from the governor pool). The second player will pick from four traits (4 from the overall pool of strengths). These will not be the same four traits.
 
 [h1]Notes[/h1]
 [list]
