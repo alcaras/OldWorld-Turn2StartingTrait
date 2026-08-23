@@ -111,8 +111,22 @@ Caravan, Militia or Conscript. Across those, `Game.isEffectUnitValid` trims the 
 
 ### Mirrored offers
 
-Every mod-eligible leader is offered the **identical four traits, in the same order**, and the
-menu does not depend on who takes their turn first. Three things make that hold:
+Leaders **in the same role** are offered the **identical four traits, in the same order**, and
+the menu never depends on who takes their turn first.
+
+Mirroring is conditional on matching roles, because the shape of the offer follows the role:
+
+| both leaders | offered |
+|---|---|
+| unassigned | 4 from the full pool of 33 — **same four** |
+| both governors | 3 governor + 1 general — **same four** |
+| both generals | 3 general + 1 governor — **same four** |
+| one general, one unassigned | 3 general + 1 governor, versus 4 from the full pool — **different** |
+
+That last row is inherent, not a gap: a general's options have to be general traits. Turn
+mirroring off entirely with `TraitModCharacter.MIRROR_OFFERS`.
+
+Three things make the matching-role case hold:
 
 - one **canonical trait order**, shuffled with a game-wide seed (`Game.getSeedForId`) that every
   leader derives identically, rather than each shuffling its own filtered list — shuffling
@@ -126,9 +140,6 @@ menu does not depend on who takes their turn first. Three things make that hold:
 
 This restores what stock did for the trait the mod removes: in competitive 2-team games
 `createInitialLeader` copies an opposing leader's strength trait so both sides start alike.
-
-If the two leaders hold *different* roles the sets necessarily differ — a general needs
-general traits. Same role, same menu. Turn it off with `TraitModCharacter.MIRROR_OFFERS`.
 
 ## How it works
 
