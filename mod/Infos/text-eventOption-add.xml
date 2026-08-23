@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- CONCEPT_STRENGTH is the right link: "Positive Character Trait, of which Characters
+     normally can have a maximum of MAX_STRENGTHS". CONCEPT_UPGRADE is NOT - it documents
+     upgrading a Unit to a more advanced type, so the level-up is described in plain words. -->
 <Root>
 	<Entry>
 		<zType>TEXT_EVENTOPTION_OWTRAITMOD_UNWRITTEN_REPUTATION_OK</zType>
@@ -6,6 +9,6 @@
 	</Entry>
 	<Entry>
 		<zType>TEXT_EVENTOPTION_OWTRAITMOD_UNWRITTEN_REPUTATION_OK_HELP</zType>
-		<en-US>{CHARACTER-SHORT-0} begins with no link(CONCEPT_STRENGTH). Next turn you will choose one of four, as with any link(CONCEPT_UPGRADE).</en-US>
+		<en-US>{CHARACTER-SHORT-0} begins with no link(CONCEPT_STRENGTH). Next turn you will choose one, as if on level up.</en-US>
 	</Entry>
 </Root>

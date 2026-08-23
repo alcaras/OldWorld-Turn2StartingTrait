@@ -87,10 +87,18 @@ Caravan, Militia or Conscript. Across those, `Game.isEffectUnitValid` trims the 
 
 ### Mirrored offers
 
-Every mod-eligible leader is offered the **identical four traits, in the same order**. The
-candidate list is the intersection of what each of them could validly take, shuffled with a
-game-wide seed (`Game.getSeedForId`) rather than each character's own RNG. So in a 1v1 both
-players choose from the same menu and the roll cannot favour one of them.
+Every mod-eligible leader is offered the **identical four traits, in the same order**, and the
+menu does not depend on who takes their turn first. Three things make that hold:
+
+- one **canonical trait order**, shuffled with a game-wide seed (`Game.getSeedForId`) that every
+  leader derives identically, rather than each shuffling its own filtered list — shuffling
+  different lists with the same seed scrambles the order instead of just skipping a trait;
+- an **intersection** across leaders, because `canAddTrait` gates traits on ratings and
+  archetypes set ratings, so without it two archetypes give two different menus;
+- that intersection counts a trait a peer **already holds** as still offerable. `canAddTrait`
+  rejects a trait its holder already has, so a plain intersection would drop whatever the first
+  player had just picked out of everyone else's menu — in hot seat, player 2's fourth option
+  changed because player 1 had chosen.
 
 This restores what stock did for the trait the mod removes: in competitive 2-team games
 `createInitialLeader` copies an opposing leader's strength trait so both sides start alike.

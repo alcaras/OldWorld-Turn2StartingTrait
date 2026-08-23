@@ -27,10 +27,9 @@ namespace OwTraitMod
         /// strength trait in competitive 2-team games. Set false for independent rolls.
         public static bool MIRROR_OFFERS = true;
 
-        /// Arbitrary fixed ids feeding Game.getSeedForId, so every leader shuffles the same
-        /// list the same way. Two ids so the job and other pools are not correlated.
-        const int SHARED_SEED_JOB = 97;
-        const int SHARED_SEED_OTHER = 98;
+        /// An arbitrary fixed id feeding Game.getSeedForId, so every leader shuffles the
+        /// canonical trait order the same way.
+        const int SHARED_SEED_ORDER = 97;
 
         /// <summary>
         /// Push the level-up decision that hands this character their starting trait.
@@ -64,43 +63,54 @@ namespace OwTraitMod
             using (var jobListScoped = CollectionCache.GetListScoped<TraitType>())
             using (var otherListScoped = CollectionCache.GetListScoped<TraitType>())
             using (var choiceListScoped = CollectionCache.GetListScoped<TraitType>())
-            using (var peerListScoped = CollectionCache.GetListScoped<TraitModCharacter>())
             {
                 List<TraitType> aeJobTraits = jobListScoped.Value;
                 List<TraitType> aeOtherTraits = otherListScoped.Value;
                 List<TraitType> aeChoices = choiceListScoped.Value;
-                List<TraitModCharacter> aPeers = peerListScoped.Value;
 
-                if (MIRROR_OFFERS)
+                // Mirroring works by walking ONE canonical order that every leader derives
+                // identically, and taking the first options that are valid for them. Shuffling
+                // each leader's own filtered list instead would only mirror while the lists were
+                // identical - the moment one leader's pool differed by a single trait, the same
+                // seed would scramble the whole order rather than just skipping that trait.
+                // Do NOT intersect pools across leaders to force them equal: canAddTrait rejects
+                // a trait its holder already has, so that made the offer depend on who had picked
+                // first (hot seat, player 2 lost whatever player 1 had just taken).
+                using (var orderScoped = CollectionCache.GetListScoped<TraitType>())
                 {
-                    collectPeerLeaders(aPeers);
+                    List<TraitType> aeOrder = orderScoped.Value;
+
+                    for (TraitType eLoopTrait = 0; eLoopTrait < infos().traitsNum(); eLoopTrait++)
+                    {
+                        if (infos().trait(eLoopTrait).mbUpgrade)
+                        {
+                            aeOrder.Add(eLoopTrait);
+                        }
+                    }
+
+                    aeOrder.Shuffle(sharedSeed(SHARED_SEED_ORDER));
+
+                    foreach (TraitType eLoopTrait in aeOrder)
+                    {
+                        if (!isValidUpgradeTrait(eLoopTrait, false, false, false))
+                        {
+                            continue;
+                        }
+                        if (MIRROR_OFFERS && !isOfferableToPeers(eLoopTrait))
+                        {
+                            continue;
+                        }
+
+                        if (bJob && isValidUpgradeTrait(eLoopTrait, bGeneral, bExplorer, bGovernor))
+                        {
+                            aeJobTraits.Add(eLoopTrait);
+                        }
+                        else
+                        {
+                            aeOtherTraits.Add(eLoopTrait);
+                        }
+                    }
                 }
-
-                for (TraitType eLoopTrait = 0; eLoopTrait < infos().traitsNum(); eLoopTrait++)
-                {
-                    if (!isValidUpgradeTrait(eLoopTrait, false, false, false))
-                    {
-                        continue;
-                    }
-                    // Mirroring: only offer what every other eligible leader could also take,
-                    // so all of them build the identical candidate list.
-                    if (!isValidForPeers(aPeers, eLoopTrait))
-                    {
-                        continue;
-                    }
-
-                    if (bJob && isValidUpgradeTrait(eLoopTrait, bGeneral, bExplorer, bGovernor))
-                    {
-                        aeJobTraits.Add(eLoopTrait);
-                    }
-                    else
-                    {
-                        aeOtherTraits.Add(eLoopTrait);
-                    }
-                }
-
-                aeJobTraits.Shuffle(sharedSeed(SHARED_SEED_JOB));
-                aeOtherTraits.Shuffle(sharedSeed(SHARED_SEED_OTHER));
 
                 // Job traits first (capped like stock at UPGRADES_AVAILABLE), then top up
                 // from the other pool. Stock would fill the shortfall with ratings instead.
@@ -137,8 +147,18 @@ namespace OwTraitMod
             return MIRROR_OFFERS ? game().getSeedForId(iID) : nextRandomSeed();
         }
 
-        /// <summary>The other leaders this mod is offering a starting trait to.</summary>
-        protected virtual void collectPeerLeaders(List<TraitModCharacter> aPeers)
+
+        /// <summary>
+        /// True if every other eligible leader could also be offered this trait, so all of them
+        /// build the same list. canAddTrait gates on ratings, which archetypes set, so without
+        /// this two leaders with different archetypes get different menus.
+        ///
+        /// The "already holds it" clause is what makes this order-independent: canAddTrait
+        /// rejects a trait its holder already has, so once a peer picked one, a bare canAddTrait
+        /// would drop it from everyone else's menu - which is exactly the hot seat bug. A trait a
+        /// peer is already wearing was plainly offerable to them, so it still counts.
+        /// </summary>
+        protected virtual bool isOfferableToPeers(TraitType eTrait)
         {
             for (PlayerType eLoopPlayer = 0; eLoopPlayer < game().getNumPlayers(); eLoopPlayer++)
             {
@@ -149,22 +169,17 @@ namespace OwTraitMod
                     continue;
                 }
 
-                TraitModCharacter pLoopLeader = pLoopPlayer.leader() as TraitModCharacter;
+                Character pLoopLeader = pLoopPlayer.leader();
 
                 if ((pLoopLeader == null) || (pLoopLeader == this) || !pLoopLeader.isAlive())
                 {
                     continue;
                 }
-
-                aPeers.Add(pLoopLeader);
-            }
-        }
-
-        protected virtual bool isValidForPeers(List<TraitModCharacter> aPeers, TraitType eTrait)
-        {
-            foreach (TraitModCharacter pPeer in aPeers)
-            {
-                if (!pPeer.isValidUpgradeTrait(eTrait, false, false, false))
+                if (pLoopLeader.isTrait(eTrait))
+                {
+                    continue;
+                }
+                if (!game().canAddTrait(eTrait, pLoopLeader, CharacterType.NONE, bTestPrereqs: true))
                 {
                     return false;
                 }
