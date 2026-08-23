@@ -13,9 +13,22 @@ Your archetype choice and your ratings are untouched.
 [*][b]Turn 2[/b] — the Promote popup offers [b]four traits[/b] and no rating options.
 [/list]
 
-[b]Leader with no job[/b] — four picks from the pool of 33 strengths.
-[b]Leader already a general[/b] — three general strengths and one governor strength, just like a level up.
-[b]Leader already a governor[/b] — three governor strengths and one general strength, just like a level up.
+[b]Leader with no job[/b] — four picks from the full pool of 33 strengths.
+[b]Leader already a general[/b] — three general strengths (from the pool of 15) and one governor strength, just like a level up.
+[b]Leader already a governor[/b] — three governor strengths (from the pool of 18) and one general strength, just like a level up.
+
+[h1]The pools[/h1]
+[b]General (15)[/b] — traits that improve the unit your leader commands:
+[list]
+[*]Besieger, Bloodthirsty, Brave, Engineer, Fierce, Heckler, Herbalist, Highlander, Horsebane, Ranger, Shieldbearer, Steadfast, Swift, Tough, Tracker
+[/list]
+
+[b]Governor (18)[/b] — traits that improve the city your leader governs:
+[list]
+[*]Affable, Carpenter, Cultivator, Cunning, Delver, Eloquent, Equestrian, Frugal, Inspiring, Intelligent, Naturalist, Pathfinder, Prosperous, Righteous, Robust, Strict, Vigilant, Warlike
+[/list]
+
+The two do not overlap, so a general's fourth option is always a governor strength, and a governor's fourth is always a general one.
 
 [h1]Multiplayer: the same menu for everyone[/h1]
 Every player is offered the [b]identical four traits, in the same order[/b], and the menu does not depend on whose turn is processed first. The game is decided by the choice, not the roll.
