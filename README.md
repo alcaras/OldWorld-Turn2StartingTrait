@@ -60,8 +60,32 @@ Popup contents, following the stock level-up shape:
   valid for that job, plus 1 from the other pool. If the job pool holds fewer than 3
   eligible traits, the mod tops up from the other pool rather than padding with ratings.
 
+### Any archetype, any trait
+
+Stock gates 12 of the 33 upgrade traits on a **rating** — Intelligent and Cunning need
+non-negative Wisdom, Prosperous/Frugal/Vigilant/Strict need Discipline, and so on — and
+archetypes set ratings. Three archetypes therefore lose options:
+
+| archetype | rating | stock blocks |
+|---|---|---|
+| Zealot | Wisdom −1 | Intelligent, Cunning |
+| Schemer | Courage −1 | Warlike, Brave, Fierce |
+| Orator | Discipline −1 | Prosperous, Frugal, Vigilant, Strict |
+
+`TraitModCharacter.ALLOW_OFF_ARCHETYPE_TRAITS` (default **on**) lifts that, so every leader
+draws from the same 33 whatever their archetype — the same freedom the leader customizer
+already gives, where the trait list is every strength/weakness with no eligibility check at
+all. It also means mirrored offers cost nothing: with equal pools, both players see the same
+four every time.
+
+Three engine facts make it work: `canAddTrait` takes a `bTestPrereqs` flag and the rating gate
+lives entirely inside it; the decision-resolution path calls `addTrait(trait, bForce: true)`,
+which skips `canAddTrait` outright; and `Player.isDecisionValid` is virtual, so the mod
+re-implements it for `UpgradeCharacterDecision` only — otherwise `updateDecisions()` would
+quietly delete the offer on the next turn.
+
 The trait pool is the engine's own level-up pool: the 33 traits flagged `bUpgrade`, run
-through `Character.isValidUpgradeTrait` unchanged. All 33 are strength traits, and they split
+through `Character.isValidUpgradeTrait`. All 33 are strength traits, and they split
 cleanly by role with no overlap:
 
 | role | pool | notes |

@@ -110,6 +110,49 @@ namespace OwTraitMod
             }
         }
 
+        /// <summary>
+        /// Stock validates an UpgradeCharacterDecision with canAddTrait(bTestPrereqs: true), so
+        /// an offer containing a trait the leader's archetype gates on a rating would be refused
+        /// at push time and then culled by updateDecisions. Re-implement just that decision type
+        /// with the gate under our control - deliberately mirroring the stock checks (queue
+        /// membership, character alive, every trait addable) so nothing else is waved through.
+        /// The resolution path already calls addTrait(eTrait, bForce: true), which skips
+        /// canAddTrait entirely, so the chosen trait applies.
+        /// </summary>
+        public override bool isDecisionValid(DecisionData pDecision, bool bCheckQueue = true)
+        {
+            if (!TraitModCharacter.ALLOW_OFF_ARCHETYPE_TRAITS || !(pDecision is UpgradeCharacterDecision pUpgrade))
+            {
+                return base.isDecisionValid(pDecision, bCheckQueue);
+            }
+
+            if (bCheckQueue && !getDecisionList().Contains(pDecision))
+            {
+                return false;
+            }
+
+            Character pCharacter = game().character(pUpgrade.getCharacterID());
+
+            if ((pCharacter == null) || pCharacter.isDead())
+            {
+                return false;
+            }
+
+            int iNumUpgrades = pUpgrade.getNumUpgrades();
+
+            for (int i = 0; i < iNumUpgrades; ++i)
+            {
+                TraitType eTrait = pUpgrade.getTrait(i);
+
+                if ((eTrait != TraitType.NONE)
+                    && !game().canAddTrait(eTrait, pCharacter, CharacterType.NONE, bTestPrereqs: TraitModCharacter.TestPrereqs))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         protected override void processTurn()
         {
             // processTurn no-ops when it has already run this turn; only follow a real one.

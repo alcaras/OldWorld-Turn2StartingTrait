@@ -27,9 +27,24 @@ namespace OwTraitMod
         /// strength trait in competitive 2-team games. Set false for independent rolls.
         public static bool MIRROR_OFFERS = true;
 
+        /// <summary>
+        /// Let any archetype be offered any trait, matching what the leader customizer already
+        /// allows (its list is every bStrength/bWeakness trait, with no canAddTrait check).
+        ///
+        /// Stock gates 12 of the 33 upgrade traits on a rating - Intelligent and Cunning need
+        /// non-negative Wisdom, and so on - and archetypes set ratings, so three archetypes lose
+        /// options: Zealot (Wisdom -1) cannot take Intelligent or Cunning, Schemer (Courage -1)
+        /// loses Warlike/Brave/Fierce, Orator (Discipline -1) loses Prosperous/Frugal/Vigilant/
+        /// Strict. With this on, every leader draws from the same 33 whatever their archetype.
+        /// </summary>
+        public static bool ALLOW_OFF_ARCHETYPE_TRAITS = true;
+
         /// An arbitrary fixed id feeding Game.getSeedForId, so every leader shuffles the
         /// canonical trait order the same way.
         const int SHARED_SEED_ORDER = 97;
+
+        /// <summary>Whether canAddTrait should apply the rating/job prereq gate.</summary>
+        public static bool TestPrereqs { get { return !ALLOW_OFF_ARCHETYPE_TRAITS; } }
 
         /// <summary>
         /// Push the level-up decision that hands this character their starting trait.
@@ -92,7 +107,7 @@ namespace OwTraitMod
 
                     foreach (TraitType eLoopTrait in aeOrder)
                     {
-                        if (!isValidUpgradeTrait(eLoopTrait, false, false, false))
+                        if (!isOfferable(eLoopTrait, false, false, false))
                         {
                             continue;
                         }
@@ -101,7 +116,7 @@ namespace OwTraitMod
                             continue;
                         }
 
-                        if (bJob && isValidUpgradeTrait(eLoopTrait, bGeneral, bExplorer, bGovernor))
+                        if (bJob && isOfferable(eLoopTrait, bGeneral, bExplorer, bGovernor))
                         {
                             aeJobTraits.Add(eLoopTrait);
                         }
@@ -149,6 +164,66 @@ namespace OwTraitMod
 
 
         /// <summary>
+        /// Character.isValidUpgradeTrait, but with the prereq gate under our control. Stock
+        /// always passes bTestPrereqs: true, which is where the rating restriction lives.
+        /// </summary>
+        protected virtual bool isOfferable(TraitType eTrait, bool bGeneral, bool bExplorer, bool bGovernor)
+        {
+            if (!ALLOW_OFF_ARCHETYPE_TRAITS)
+            {
+                return isValidUpgradeTrait(eTrait, bGeneral, bExplorer, bGovernor);
+            }
+
+            if (!infos().trait(eTrait).mbUpgrade)
+            {
+                return false;
+            }
+            if (isTrait(eTrait))
+            {
+                return false;
+            }
+
+            if (bGeneral)
+            {
+                EffectUnitType eEffectUnit = infos().trait(eTrait).meGeneralEffectUnit;
+
+                if ((eEffectUnit == EffectUnitType.NONE) || unitGeneral().hasEffectUnit(eEffectUnit)
+                    || !game().isEffectUnitValid(unitGeneral().getType(), eEffectUnit, true))
+                {
+                    return false;
+                }
+            }
+            if (bExplorer)
+            {
+                EffectUnitType eEffectUnit = infos().trait(eTrait).meExplorerEffectUnit;
+
+                if ((eEffectUnit == EffectUnitType.NONE) || unitExplorer().hasEffectUnit(eEffectUnit)
+                    || !game().isEffectUnitValid(unitExplorer().getType(), eEffectUnit, true))
+                {
+                    return false;
+                }
+            }
+            if (bGovernor)
+            {
+                if ((infos().trait(eTrait).meGovernorEffectCity == EffectCityType.NONE)
+                    && (infos().trait(eTrait).meStateReligionEffectCity == EffectCityType.NONE))
+                {
+                    return false;
+                }
+            }
+
+            if (!game().canAddTrait(eTrait, this, CharacterType.NONE, bTestPrereqs: TestPrereqs))
+            {
+                return false;
+            }
+            if (hasTraitReplaces(eTrait))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// True if every other eligible leader could also be offered this trait, so all of them
         /// build the same list. canAddTrait gates on ratings, which archetypes set, so without
         /// this two leaders with different archetypes get different menus.
@@ -179,7 +254,7 @@ namespace OwTraitMod
                 {
                     continue;
                 }
-                if (!game().canAddTrait(eTrait, pLoopLeader, CharacterType.NONE, bTestPrereqs: true))
+                if (!game().canAddTrait(eTrait, pLoopLeader, CharacterType.NONE, bTestPrereqs: TestPrereqs))
                 {
                     return false;
                 }

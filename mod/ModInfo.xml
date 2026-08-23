@@ -4,7 +4,7 @@
   <description>Pick Later leaders no longer roll a random strength trait at founding. On turn 2 they instead get a level-up style Promote popup and choose their starting trait: four job traits if the leader already holds a job, four free-pick traits otherwise. Archetype and ratings are untouched. A turn-1 event tells the player the pick is coming.</description>
   <author>alcaras</author>
   <modplatform>Local</modplatform>
-  <modversion>0.3.0</modversion>
+  <modversion>0.4.0</modversion>
   <modbuild>1.0.84365</modbuild>
   <tags>Gameplay</tags>
   <singlePlayer>true</singlePlayer>

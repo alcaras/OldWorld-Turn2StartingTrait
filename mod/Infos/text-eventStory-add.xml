@@ -8,7 +8,7 @@
 		<zType>TEXT_EVENTSTORY_OWTRAITMOD_UNWRITTEN_REPUTATION</zType>
 		<en-US>You are {CHARACTER-SHORT-0}, first ruler of {PLAYER-1}. Your court is uncertain what sort of ruler you might be.
 
-"We followed you, dear {G0:King:Queen}," says one of the elders. "The other kingdoms speak of their rulers as righteous, or cunning, or swift. We are as yet uncertain as to what sort of ruler you will prove to be."
+"We followed you, dear {G0:King:Queen}," says one of the elders. "The other kingdoms speak of their rulers as righteous, or cunning, or swift."
 
 "All we can say is that you have brought us this far. May the gods of {PLAYER-1} smile upon you."
 
