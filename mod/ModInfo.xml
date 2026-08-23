@@ -37,7 +37,7 @@ This restores something the base game already does for the trait being replaced:
   <modpicture>modpicture.png</modpicture>
   <author>alcaras</author>
   <modplatform>Local</modplatform>
-  <modversion>0.4.0</modversion>
+  <modversion>0.4.1</modversion>
   <modbuild>1.0.84365</modbuild>
   <tags>Gameplay</tags>
   <singlePlayer>true</singlePlayer>
