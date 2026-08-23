@@ -7,3 +7,6 @@ dist/
 # projects on this machine, so they are deliberately not published
 CLAUDE.md
 test/
+
+# git filter-branch scratch dir — never commit
+.git-rewrite/
