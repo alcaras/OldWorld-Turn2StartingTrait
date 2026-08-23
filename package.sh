@@ -9,6 +9,7 @@ ZIP="$HERE/dist/OwTraitMod-$VERSION.zip"
 "$HERE/build.sh" > /dev/null
 rm -rf "$STAGE"; mkdir -p "$STAGE/OwTraitMod/Infos" "$HERE/dist"
 cp "$HERE/mod/ModInfo.xml" "$STAGE/OwTraitMod/"
+cp "$HERE/mod/modpicture.png" "$STAGE/OwTraitMod/"
 cp "$HERE/mod/Infos/"*.xml "$STAGE/OwTraitMod/Infos/"
 cp /tmp/owtraitmod-build/OwTraitMod/bin/Debug/OwTraitMod.dll "$STAGE/OwTraitMod/"
 cp "$HERE/INSTALL.txt" "$STAGE/"

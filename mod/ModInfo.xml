@@ -1,7 +1,40 @@
 <?xml version="1.0"?>
 <ModInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <displayName>Turn 2 Starting Trait</displayName>
-  <description>Pick Later leaders no longer roll a random strength trait at founding. On turn 2 they instead get a level-up style Promote popup and choose their starting trait: four job traits if the leader already holds a job, four free-pick traits otherwise. Archetype and ratings are untouched. A turn-1 event tells the player the pick is coming.</description>
+  <description>[h1]Choose your ruler's first strength instead of rolling it.[/h1]
+
+With [b]Leader = Pick Later[/b] and [b]Customize Leader off[/b], your ruler no longer starts with a random strength trait. On [b]turn 2[/b] you get the familiar Promote popup and pick one yourself.
+
+Your archetype choice and your ratings are untouched.
+
+[h1]What you get[/h1]
+[list]
+[*][b]Turn 1[/b] — you found your capital and pick your archetype. An event, [i]The Measure of a King[/i] (or Queen), tells you the choice is coming.
+[*][b]Turn 2[/b] — the Promote popup offers [b]four traits[/b] and no rating options.
+[/list]
+
+[b]Leader with no job[/b] — four free picks.
+[b]Leader already a general, explorer or governor[/b] — the stock level-up shape: three traits for that job plus one from the other pool.
+
+[h1]Any archetype, any trait[/h1]
+The base game gates twelve of the thirty-three level-up traits on a rating, and archetypes set ratings. A Zealot (Wisdom -1) can never take Intelligent or Cunning; a Schemer loses Warlike, Brave and Fierce; an Orator loses Prosperous, Frugal, Vigilant and Strict.
+
+This mod lifts that, so every ruler draws from the same thirty-three — the freedom the leader customizer already gives you, without the rest of the customizer.
+
+[h1]Multiplayer: the same menu for everyone[/h1]
+Every player is offered the [b]identical four traits, in the same order[/b], and the menu does not depend on whose turn is processed first. The game is decided by the choice, not the roll.
+
+This restores something the base game already does for the trait being replaced: in competitive two-team games it copies an opposing ruler's strength trait so both sides start alike.
+
+[h1]Notes[/h1]
+[list]
+[*]Everyone in a multiplayer game needs the mod enabled.
+[*]Players using a fixed archetype, a preset leader, or the leader customizer are unaffected.
+[*]No base game files are changed. Built and tested against 1.0.84365.
+[/list]
+
+[b]Source:[/b] https://github.com/alcaras/OldWorld-Turn2StartingTrait</description>
+  <modpicture>modpicture.png</modpicture>
   <author>alcaras</author>
   <modplatform>Local</modplatform>
   <modversion>0.4.0</modversion>
