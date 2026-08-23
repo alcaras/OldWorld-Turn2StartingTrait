@@ -1,0 +1,9 @@
+bin/
+obj/
+dist/
+.DS_Store
+
+# local development notes and the headless test rig: both reference other local
+# projects on this machine, so they are deliberately not published
+CLAUDE.md
+test/

@@ -1,0 +1,8 @@
+<Project>
+  <!-- Keep build output out of the source tree: a cloud-synced source folder can race
+       the compiler and remove freshly written files mid-build. -->
+  <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+    <BaseOutputPath>/tmp/owtraitmod-build/$(MSBuildProjectName)/bin/</BaseOutputPath>
+    <BaseIntermediateOutputPath>/tmp/owtraitmod-build/$(MSBuildProjectName)/obj/</BaseIntermediateOutputPath>
+  </PropertyGroup>
+</Project>

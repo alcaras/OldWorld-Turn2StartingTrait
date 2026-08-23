@@ -46,7 +46,7 @@ Every player is offered the [b]identical four traits, in the same order[/b], and
   <modplatform>Local</modplatform>
   <modversion>0.4.1</modversion>
   <modbuild>1.0.84365</modbuild>
-  <tags>Gameplay</tags>
+  <tags>Character,Event</tags>
   <singlePlayer>true</singlePlayer>
   <multiplayer>true</multiplayer>
   <scenario>false</scenario>
