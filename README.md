@@ -22,25 +22,30 @@ The archetype you choose when founding your capital is untouched, and so are rat
 
 ### The founding event
 
-When you found your capital and pick your archetype, *The Measure of a Ruler* fires — a normal
-Old World event card with your ruler's portrait — so the missing trait reads as intentional
-rather than as a bug:
+When you found your capital and pick your archetype, **The Measure of a King** (or Queen) fires
+— a normal Old World event card with your ruler's portrait — so the missing trait reads as
+intentional rather than as a bug:
 
-> The elders of your court gather to take your measure, and they are not subtle about it. You
-> are new to the throne, **{ruler}**, and every one of them has buried a ruler before. One of
-> them mutters that it is far too early to say anything at all. Another agrees, a little too
-> quickly.
+> You are **{ruler}**, first ruler of **{nation}**, and no one here yet knows what kind of ruler
+> you will be.
 >
-> They will not praise what they have not seen. Whatever word they finally settle on for you —
-> shrewd, pious, ruthless — you will earn it in the season ahead, not today.
+> "We followed you on faith," says one of the elders who walked the whole road with your people.
+> "The older kingdoms are known by what their rulers are — the pious, the cunning, the merciless.
+> Of you we can say only that you brought us this far."
 >
-> What will you have them witness?
+> True enough, and not yet enough. Your young nation awaits its first command. May the gods of
+> **{nation}** smile upon you.
 >
-> — *Let them watch. I will give them something worth telling.*
+> — *Let them take my measure, then.*
 
 It is a real `eventStory` in `mod/Infos/`, fired from code rather than by a trigger so it
 reaches exactly the players the mod applies to, and only once their leader exists. The option
 carries a help tooltip stating the mechanic plainly, so the body stays in voice.
+
+Written against the shipped founding events (`EVENTSTORY_START_*_FOUND`), which open on
+"You are {ruler}, [title] of {nation}", run three short paragraphs, and close on a
+forward-looking line. The title keeps the Protagoras echo — *man is the measure of all things* —
+and genders itself with `{G0:King:Queen}`, the same pattern shipped titles use.
 
 Popup contents, following the stock level-up shape:
 

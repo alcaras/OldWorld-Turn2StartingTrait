@@ -8,8 +8,11 @@
 		<Name>TEXT_EVENTSTORY_OWTRAITMOD_UNWRITTEN_REPUTATION_TITLE</Name>
 		<Text>TEXT_EVENTSTORY_OWTRAITMOD_UNWRITTEN_REPUTATION</Text>
 		<zBackgroundName>crowning_01</zBackgroundName>
+		<!-- Subject 1 exists so the text can say {PLAYER-1}: a Character subject emits the
+		     CHARACTER-* keys but never PLAYER-, so the nation needs a subject of its own. -->
 		<aeSubjects>
 			<zValue>SUBJECT_LEADER_US</zValue>
+			<zValue>SUBJECT_PLAYER_US</zValue>
 		</aeSubjects>
 		<aeOptions>
 			<zValue>EVENTOPTION_OWTRAITMOD_UNWRITTEN_REPUTATION_OK</zValue>

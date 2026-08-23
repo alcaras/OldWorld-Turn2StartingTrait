@@ -2,10 +2,10 @@
 <Root>
 	<Entry>
 		<zType>TEXT_EVENTOPTION_OWTRAITMOD_UNWRITTEN_REPUTATION_OK</zType>
-		<en-US>Let them watch. I will give them something worth telling.</en-US>
+		<en-US>Let them take my measure, then.</en-US>
 	</Entry>
 	<Entry>
 		<zType>TEXT_EVENTOPTION_OWTRAITMOD_UNWRITTEN_REPUTATION_OK_HELP</zType>
-		<en-US>{CHARACTER-SHORT-0} begins with no strength. Next turn you will choose one.</en-US>
+		<en-US>{CHARACTER-SHORT-0} begins with no link(CONCEPT_STRENGTH). Next turn you will choose one of four, as with any link(CONCEPT_UPGRADE).</en-US>
 	</Entry>
 </Root>

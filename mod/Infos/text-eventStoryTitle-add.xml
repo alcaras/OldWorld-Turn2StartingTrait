@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- "The Measure of..." keeps the Protagoras echo (man is the measure of all things).
+     {G0:King:Queen} is the shipped pattern for a gendered title - see "The Ideal
+     {G1:King:Queen}" and "Apostate {G2:King:Queen}" in text-eventStoryTitle.xml. -->
 <Root>
 	<Entry>
 		<zType>TEXT_EVENTSTORY_OWTRAITMOD_UNWRITTEN_REPUTATION_TITLE</zType>
-		<en-US>The Measure of a Ruler</en-US>
+		<en-US>The Measure of a {G0:King:Queen}</en-US>
 	</Entry>
 </Root>
