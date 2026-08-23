@@ -26,17 +26,21 @@ When you found your capital and pick your archetype, **The Measure of a King** (
 — a normal Old World event card with your ruler's portrait — so the missing trait reads as
 intentional rather than as a bug:
 
-> You are **{ruler}**, first ruler of **{nation}**, and no one here yet knows what kind of ruler
-> you will be.
+> You are **{ruler}**, first ruler of **{nation}**. Your court is uncertain what sort of ruler
+> you might be.
 >
-> "We followed you on faith," says one of the elders who walked the whole road with your people.
-> "The older kingdoms are known by what their rulers are — the pious, the cunning, the merciless.
-> Of you we can say only that you brought us this far."
+> "We followed you, dear **King**," says one of the elders. "The other kingdoms speak of their
+> rulers as righteous, or cunning, or swift. We do not yet know you.
 >
-> True enough, and not yet enough. Your young nation awaits its first command. May the gods of
-> **{nation}** smile upon you.
+> "All we can say is that you have brought us this far. May the gods of **{nation}** smile upon
+> you."
 >
-> — *Let them take my measure, then.*
+> Your people await your first command.
+>
+> — *I will show them who I am.*
+
+Righteous, cunning and swift are all real `bUpgrade` traits, so every adjective the elder names
+is one the popup can actually offer next turn.
 
 It is a real `eventStory` in `mod/Infos/`, fired from code rather than by a trigger so it
 reaches exactly the players the mod applies to, and only once their leader exists. The option

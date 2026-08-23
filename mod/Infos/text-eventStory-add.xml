@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- righteous / cunning / swift are all real bUpgrade traits, so every adjective the
+     elder names is one the player can actually be offered next turn. "the gods" is
+     lowercase to match the shipped text (70 uses to 4). The second paragraph opens a
+     quote without closing the first: standard convention for one speaker continuing. -->
 <Root>
 	<Entry>
 		<zType>TEXT_EVENTSTORY_OWTRAITMOD_UNWRITTEN_REPUTATION</zType>
-		<en-US>You are {CHARACTER-SHORT-0}, first ruler of {PLAYER-1}, and no one here yet knows what kind of ruler you will be.
+		<en-US>You are {CHARACTER-SHORT-0}, first ruler of {PLAYER-1}. Your court is uncertain what sort of ruler you might be.
 
-"We followed you on faith," says one of the elders who walked the whole road with your people. "The older kingdoms are known by what their rulers are - the pious, the cunning, the merciless. Of you we can say only that you brought us this far."
+"We followed you, dear {G0:King:Queen}," says one of the elders. "The other kingdoms speak of their rulers as righteous, or cunning, or swift. We do not yet know you.
 
-True enough, and not yet enough. Your young nation awaits its first command. May the gods of {PLAYER-1} smile upon you.</en-US>
+"All we can say is that you have brought us this far. May the gods of {PLAYER-1} smile upon you."
+
+Your people await your first command.</en-US>
 	</Entry>
 </Root>
